@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js"></script>
+    <script>
+        $(function() {
+            $.ajax({
+                url: '/getBlog',
+                type: 'GET', // get blog from url
+                success: function (res) {
+                    var div = $('#blogTemplate')
+                        .append($('<a>').append($('<h4>'), $('<p>'), $('<a>').attr('id', 'blogId')));
+                    var blogObj = JSON.parse(res);
+                    var blog = '';
+
+
+                    // printing each blog based on provided model
+                    $.each(blogObj, function(index, value){
+                        blog = div.clone();
+                        var blog_id = value.Id;
+                        console.log(blog_id)
+                        $(blog).find('h4').text(value.Title);
+                        $(blog).find('p').text(value.Content.substring(0,50) + '...');
+                        $(blog).find('#blogId').attr('href', '/showOneBlog/' + blog_id).text('Read More >>>>>');
+
+                        $('#blogPage').append(blog);
+                    })
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        });
+    </script>
+
+
+</head>
+<body>
+
+{% include "header.html" %}
+
+
+<h1> Welcome this is your profile page </h1>
+
+<h2> Wanna write something? </h2>
+
+<a href="/showAddBlog"> Add Blog </a></li>
+
+<br>
+
+<p> =========================== </p>
+<h1> These are your blogs </h1>
+<div id = 'blogPage'>
+    <div id = 'blogTemplate'> </div>
+
+</div>
+
+</body>
+</html>

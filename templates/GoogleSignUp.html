@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Google Sign Up </title>
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js"></script>
+    <script>
+            function otherSelected()
+        {
+            var job = document.getElementById("inputJob");
+            var otherJob = document.getElementById("inputOtherJob");
+
+            if (job.value === 'Other') {
+                otherJob.style.display = 'inline';
+                otherJob.required = true;
+            }
+            else {
+                otherJob.style.display = 'none';
+                otherJob.required = false;
+            }
+        }
+    </script>
+
+
+    <script>
+        $(function() {
+        $.ajax({
+            url: '/signUp/google/success',
+            type: 'GET',
+            success: function(res){
+                var email = res.email
+                $('#inputEmail').attr('value', email)
+            }, error: function(error){
+                console.log(error);
+            }
+        })
+
+        })
+
+    </script>
+</head>
+<body>
+<h1> Please Fill The Following Forms </h1>
+<br> <br> <br>
+        <form action = "/signUp" method = "POST">
+            <label for="inputName">Name</label>
+        <input type="name" name="inputName" id="inputName" placeholder="Name" required autofocus>
+        <input type="hidden" name="inputEmail" id="inputEmail" placeholder="Email address" value = "">
+        <input type="hidden" name="inputPassword" id="inputPassword" placeholder="Password">
+        <input type="hidden" name="inputPhoneNum" id="inputPhoneNum" placeholder="Phone Number">
+            <br>
+            <p> What is your profession? </p>
+            <select id="inputJob" name="inputJob" onchange="otherSelected();">
+              <option value = "None"> --Select Job-- </option>
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
+              <option value="Other">Other</option>
+            </select>
+            <input id = "inputOtherJob" name = "inputOtherJob" style = 'display: none'>
+            <br>
+            <input id = "inputPlatform" name = "inputPlatform" type = "hidden" value = "Google">
+            <br>
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        </form>
+
+</body>
+</html>

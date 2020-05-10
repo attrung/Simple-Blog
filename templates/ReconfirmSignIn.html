@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Email Used </title>
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js"></script>
+    <script>
+        var platform = "{{platform}}"
+        $(function(){
+
+        if (platform == "Google"){
+            $('#Facebook').hide()
+        } else {
+            $('#Google').hide()
+        }
+
+        })
+
+
+    </script>
+</head>
+<body>
+{% include "header.html" %}
+<h1>{{error}}</h1>
+
+<a id = "Google" href = "/signUp/google"> Sign Up with Google </a>
+
+<a id = "Facebook" href = "/signUp/facebook"> Sign Up with Facebook </a>
+
+</body>
+</html>

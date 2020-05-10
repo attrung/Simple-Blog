@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blog</title>
+</head>
+<body>
+
+{% include "header.html" %}
+
+ <form method="post" action="/addBlog">
+
+     <legend> <h1> Create A Blog Post </h1> </legend>
+<br>
+<label for = "inputBlogTitle"> Title </label>
+<input id = "inputBlogTitle" name = "inputBlogTitle" type = "text" placeholder="Title">
+
+<br> <br>
+
+<label for = "inputBlogContent"> Content </label>
+     <textarea id= "inputBlogContent" name = "inputBlogContent" placeholder = "placeholder"> </textarea>
+
+<br> <br>
+
+<input id = "submitBlog" type = "submit" value = "Publish">
+
+</form>
+</body>
+</html>

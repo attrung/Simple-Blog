@@ -1,0 +1,35 @@
+
+<script type="text/javascript" src="../static/js/jquery-3.1.1.js"></script>
+
+<script>
+    var user_name = '{{user_name}}'
+
+if (user_name) {
+    $(function(){
+        $('#signUp').hide()
+        $('#signIn').hide()
+        $('#welcome').text('Welcome, ' + user_name)
+    })
+} else {
+    $(function()
+    {
+        $('#myPage').hide()
+        $('#logOut').hide()
+    })
+}
+
+</script>
+
+<a id = "homePage" href="/"> Home </a> <br>
+
+<a id = "myPage" href="/userHome"> Me Corner </a> <br>
+
+<a id = "signUp" href="/showSignUp"> Sign up </a> <br>
+
+<a id = "signIn" href="/showSignIn"> Log in </a> <br>
+
+<div id = "welcome"> </div>
+
+<a id = "logOut" href = "/logout"> Log out </a> <br>
+
+<p> ============================ </p>

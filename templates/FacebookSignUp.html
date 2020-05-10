@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="/static/js/jquery-3.1.1.js"></script>
+    <script>
+            var email =  '{{email}}'
+            $(function ()
+            {
+                $('#inputEmail').attr('value', email)
+            })
+    </script>
+</head>
+<body>
+<h1> Please Fill The Following Forms </h1>
+<br> <br> <br>
+
+        <form action = "/signUp" method = "POST">
+            <label for="inputName">Name</label>
+        <input type="name" name="inputName" id="inputName" placeholder="Name" required autofocus>
+            <input type="hidden" name="inputEmail" id="inputEmail" placeholder="Email address" value = "">
+
+            <input type="hidden" name="inputPassword" id="inputPassword" placeholder="Password">
+            <br>
+            <label for = "inputPhoneNum"> Phone Number:  </label>
+        <input type="tel" name="inputPhoneNum" id="inputPhoneNum" placeholder="Phone Number">
+            <select id="inputJob" name="inputJob" style = 'display: none'>
+              <option value = "None"> --Select Job-- </option>
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
+              <option value="Other">Other</option>
+            </select>
+            <input id = "inputOtherJob" name = "inputOtherJob" style = 'display: none'>
+            <br>
+            <input id = "inputPlatform" name = "inputPlatform" type = "hidden" value = "Facebook">
+            <br>
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        </form>
+
+
+</body>
+</html>

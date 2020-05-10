@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Blog View </title>
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js"></script>
+    <script>
+        var blog_id = '{{blog_id}}'
+        $(function() {
+            $.ajax({
+                url: '/getOneBlog/' + blog_id,
+                type: 'GET', // get blog from url
+                success: function (res) {
+                    var div = $('#blogTemplate')
+                        .append($('<a>').append($('<h4>'), $('<p>')));
+                    var blogObj = JSON.parse(res);
+                    var blog = ''
+                    blog = div.clone() // show blog with provided model
+                    $(blog).find('h4').text(blogObj.Title);
+                    $(blog).find('p').text(blogObj.Content);
+                    $('#blogPage').append(blog)
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        });
+    </script>
+    <script>
+        var blog_id = '{{blog_id}}'
+        var user_id = '{{user_id}}'
+        $(function() {
+            $.ajax({
+                url: '/getOneBlog/' + blog_id + '/getLike',
+                type: 'GET', // read likes from url
+                success: function (res) {
+                    var likeObj = JSON.parse(res);
+                    var liked = false;
+                    $.each(likeObj, function (index, value) {
+                        if (value.Like_User_Id == user_id) {
+                            liked = true;
+                        }
+                    })
+                    if (liked === true) {
+                        $('#addLike').hide()
+                    } else {
+                        $('#removeLike').hide()
+                    }
+
+                    // printing those who liked the blog, based on number of people actually liked it
+                    if (likeObj.length >= 3) {
+                        $('#userLiked').attr('href', '/showOneBlog/' + blog_id + '/showLikes')
+                        text = ''
+                        for (i = 0; i < 2; i++) {
+                            text = text + likeObj[i].Name + ', '
+                        }
+                        text = text + 'and ' + (likeObj.length - 2) + ' more liked this'
+                    } else if (likeObj.length == 2) {
+                        text = likeObj[0].Name
+                        text = text + ' and ' + likeObj[1].Name
+                        text = text + ' liked this.'
+                    } else if (likeObj.length == 1) {
+                        text = likeObj[0].Name
+                        text += ' liked this'
+                    } else {
+                        text = 'No one liked this'
+                    }
+                    $('#userLiked').text(text)
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+{% include "header.html" %}
+
+<h1> Single Blog Page View </h1>
+
+<p> ============================ </p>
+
+<div id = 'blogPage'>
+<div id = 'blogTemplate'></div>
+</div>
+
+<form id = "addLike" action = "/getOneBlog/{{blog_id}}/addLike" method = "POST">
+    <input id = "AddLikeSubmit" type = "submit" value = "Like">
+</form>
+
+<form id = "removeLike" action = "/getOneBlog/{{blog_id}}/removeLike" method = "POST">
+    <input id = "RemoveLikeSubmit" type = "submit" value = "Unlike">
+</form>
+
+<div>
+    <a id = "userLiked"> Some people liked </a>
+</div>
+
+</body>
+</html>
